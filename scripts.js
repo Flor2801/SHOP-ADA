@@ -316,6 +316,10 @@ const carritoVacio = () => {
     aviso.classList.remove("hidden")
     footerCarrito.classList.add("hidden")
     carro.classList.add("hidden")
+
+  for (let input of selectores) {
+    input.value = 0;
+  }
     actualizarCarrito()
     actualizarSubtotal()
   }
@@ -358,6 +362,7 @@ const eliminaSamsung1 = document.getElementById("elimina-samsung-1")
 agregaSamsung1.onclick = () => {
   itemSamsung1.classList.remove("hidden")
   itemSamsung1.classList.add("comprado") 
+  selector1.value = 1
   carro.appendChild(itemSamsung1)
   actualizarCarrito()
   actualizarSubtotal()
@@ -367,9 +372,10 @@ agregaSamsung1.onclick = () => {
 eliminaSamsung1.onclick = () => {
   itemSamsung1.classList.add("hidden")
   itemSamsung1.classList.remove("comprado") 
+  selector1.value = 0
   actualizarCarrito()
-  carritoVacio()
   actualizarSubtotal()
+  carritoVacio()
 }
 
 
@@ -383,6 +389,7 @@ agregaPlay.onclick = () => {
   itemPlay.classList.remove("hidden")
   itemPlay.classList.add("comprado") 
   carro.appendChild(itemPlay)
+  selector2.value = 1
   actualizarCarrito()
   actualizarSubtotal()
   carritoVacio()
@@ -391,6 +398,7 @@ agregaPlay.onclick = () => {
 eliminaPlay.onclick = () => {
   itemPlay.classList.add("hidden")
   itemPlay.classList.remove("comprado")
+  selector2.value = 0
   actualizarCarrito()
   carritoVacio()
   actualizarSubtotal()
@@ -406,6 +414,7 @@ agregaNokia.onclick = () => {
   itemNokia.classList.remove("hidden")
   itemNokia.classList.add("comprado") 
   carro.appendChild(itemNokia)
+  selector3.value = 1
   actualizarCarrito()
   actualizarSubtotal()
   carritoVacio()
@@ -414,6 +423,7 @@ agregaNokia.onclick = () => {
 eliminaNokia.onclick = () => {
   itemNokia.classList.add("hidden")
   itemNokia.classList.remove("comprado") 
+  selector3.value = 0
   actualizarCarrito()
   carritoVacio()
   actualizarSubtotal()
@@ -430,6 +440,7 @@ agregaSamsung2.onclick = () => {
   itemSamsung2.classList.remove("hidden")
   itemSamsung2.classList.add("comprado") 
   carro.appendChild(itemSamsung2)
+  selector4.value = 1
   actualizarCarrito()
   actualizarSubtotal()
   carritoVacio()
@@ -438,6 +449,7 @@ agregaSamsung2.onclick = () => {
 eliminaSamsung2.onclick = () => {
   itemSamsung2.classList.add("hidden")
   itemSamsung2.classList.remove("comprado") 
+  selector4.value = 0
   actualizarCarrito()
   carritoVacio()
   actualizarSubtotal()
@@ -501,6 +513,7 @@ const seguirCheckout = document.getElementById("fin-1")
 const finalizarCheckout = document.getElementById("fin-2")
 
 
+
 comprar.onclick = () => {
   checkout.classList.remove("hidden")
   subtotalCheckout.textContent = subtotalCarrito
@@ -522,7 +535,9 @@ seguirCheckout.onclick = () => {
 const overlayVaciar = document.getElementById("overlay-vaciar")
 const botonCancelarModal = document.getElementById("boton-modal-cancelar")
 const botonVaciarModal = document.getElementById("boton-modal-vaciar")
+const selectores = document.getElementsByClassName("carr-input")
 
+console.log(selectores)
 
 botonCancelarModal.onclick = () => {
   overlayVaciar.classList.add("hidden")
@@ -534,12 +549,14 @@ botonVaciarModal.onclick = () => {
   footerCarrito.classList.add("hidden")
   carro.classList.add("hidden")
  
+  for (let input of selectores) {
+    input.value = 0;
+  }
 
   let productosComprados = document.getElementsByClassName("comprado")
   for (let producto of productosComprados) {
      producto.classList.remove("comprado")
      producto.classList.add("hidden")
-     
   }
 
   actualizarCarrito()
@@ -607,13 +624,13 @@ totalPlay = selector2.value*30000
 actualizarSubtotal()
 }
 
-selector1.onclick = () => {
-totalNokia = selector1.value*32500
+selector3.onclick = () => {
+totalNokia = selector3.value*32500
 actualizarSubtotal()
 }
   
-selector2.onclick = () => {
-totalSamsung2 = selector2.value*56000
+selector4.onclick = () => {
+totalSamsung2 = selector4.value*56000
 actualizarSubtotal()
 }
 
