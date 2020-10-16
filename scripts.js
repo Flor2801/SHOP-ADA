@@ -16,6 +16,7 @@ const grilla = document.getElementById("catalogo-grilla")
 // TARJETAS DE PRODUCTOS
 const descripciones = document.getElementsByClassName("texto-descriptivo")
 const detalle = document.getElementById("desc-producto")
+const detalles = document.querySelectorAll(".desc-producto")
 
 
 // Hacer clic en el icono modo grilla
@@ -26,15 +27,19 @@ vistaGrilla.onclick = () => {
   for (textos of descripciones) {
     textos.classList.add("hidden")
   }
+
 }
 
 // Hacer clic en el icono modo lista
 vistaLista.onclick = () => {
   grilla.classList.add("catalogo-lista");
-  detalle.classList.add("detalles-lista");
 
   for (textos of descripciones) {
     textos.classList.remove("hidden")
+  }
+
+  for (card of detalles) {
+    card.classList.add("detalles-lista");
   }
 
 }
@@ -206,7 +211,6 @@ const coincidePuntoConTarjeta = (tarjeta) => {
 /*  LIMPIAR TODOS LOS FILTROS */
 
 
-
 limpiar.onclick = () => {
 
   for (cards of tarjetas) {
@@ -228,48 +232,13 @@ filtroNombre.value = "";
 actualizarVista()
 }
 
-/*
-limpiar.onclick = () => {
-
-  for (cards of tarjetas) {
-  cards.classList.remove('hidden')
-  }
-
-for (punto of filtroRating) {
-     punto.checked = false;
-     if (punto.checked = false) {
-        tarjeta.classList.remove('hidden');
-        } 
-    }
-
-for (tipo of filtroCategoria) {
-     tipo.checked = false;
-     if (tipo.checked = false) {
-        tarjeta.classList.remove('hidden');
-        } 
-}
-
-filtroNombre.value = "";
-
-}
-
-
-
-for (let tarjeta of tarjetas) {
-if ( productosVisibles !== 0)
-  tarjeta.classList.remove("selected");
-  actualizarVista()
-}
-*/
-
-
 
 
 /*************************************  ABRIR CARRITO  ***************************************/
 
 
 const carrito = document.getElementById("abrir-carrito");
-const menu = document.getElementById("menu-compra");
+const menuCarrito = document.getElementById("menu-compra");
 const cerrar = document.getElementById("cerrar");
 const overlay = document.getElementById("overlay");
 const body = document.getElementsByTagName("body");
@@ -291,11 +260,11 @@ cerrar.onclick = () => {
 
 
 const embudo = document.getElementById("ico-filtros-responsive");
-const overlayResponsive = document.getElementById("overlay-responsive");
-
+const menuResponsive = document.getElementById("menu-filtros");
 
 embudo.onclick = () => { 
-  overlayResponsive.classList.remove("hidden");
+  overlay.classList.remove("hidden");
+  menuResponsive.classList.add("ver-filtros-responsive");
 };
 
 
@@ -331,34 +300,14 @@ const totalCheckout = document.getElementById("total-checkout")
 // PARTES DE LAS TARJETAS
 const Items = document.getElementsByClassName("item")
 const botones = document.getElementsByClassName("comprar")
-const agregaSamsung1 = document.getElementById("compra-samsung-1")
-const itemSamsung1 = document.getElementById("ver-samsung-1")
 const quitar = document.getElementById("ico-samsung1")
-const selector1 = document.getElementById("selector value-1")
 const precio1 = document.getElementById("precio-1")
 const subtotalCarrito = document.getElementById("subCarrito")
+
+const selector1 = document.getElementById("selector value-1")
 const selector2 = document.getElementById("selector value-2")
-
-/*
-
-for (let boton of Botones) {
-  
-  boton.onclick = () => {
-  
-    if (boton.data.nombre == item.data.nombre) {
-      item.classList.remove("hidden")
-      item.classList.add("comprado")
-      carro.appendChild(item)
-    }
-  
-  
-  }
-  aviso.classList.add("hidden")
-  actualizarCarrito()
-  }
-
-  */
-
+const selector3 = document.getElementById("selector value-3")
+const selector4 = document.getElementById("selector value-4")
 
 
 const carritoVacio = () => {
@@ -378,9 +327,33 @@ const carritoVacio = () => {
   
 }
 
+/*
+
+//////////  POSIBLE FUNCION PARA AGREGAR PRODUCTOS AL CARRITO
 
 
 
+for (let boton of botones) {
+if (boton.onclick) {
+  for (let item of Items) {
+  if (boton.dataset.nombre === item.dataset.nombre) {
+    item.classList.remove("hidden")
+    item.classList.add("comprado") 
+    carro.appendChild(itemSamsung1)
+    actualizarCarrito()
+    actualizarSubtotal()
+    carritoVacio()
+  }
+}
+}
+}
+
+*/
+
+
+const agregaSamsung1 = document.getElementById("compra-samsung-1")
+const itemSamsung1 = document.getElementById("ver-samsung-1")
+const eliminaSamsung1 = document.getElementById("elimina-samsung-1")
 
 agregaSamsung1.onclick = () => {
   itemSamsung1.classList.remove("hidden")
@@ -390,8 +363,6 @@ agregaSamsung1.onclick = () => {
   actualizarSubtotal()
   carritoVacio()
 }
-
-const eliminaSamsung1 = document.getElementById("elimina-samsung-1")
 
 eliminaSamsung1.onclick = () => {
   itemSamsung1.classList.add("hidden")
@@ -405,6 +376,7 @@ eliminaSamsung1.onclick = () => {
 
 const itemPlay = document.getElementById("ver-item-play")
 const agregaPlay = document.getElementById("compra-play")
+const eliminaPlay = document.getElementById("elimina-play")
 
 
 agregaPlay.onclick = () => {
@@ -415,9 +387,6 @@ agregaPlay.onclick = () => {
   actualizarSubtotal()
   carritoVacio()
 }
-
-
-const eliminaPlay = document.getElementById("elimina-play")
 
 eliminaPlay.onclick = () => {
   itemPlay.classList.add("hidden")
@@ -431,6 +400,7 @@ eliminaPlay.onclick = () => {
 
 const itemNokia = document.getElementById("ver-item-nokia")
 const agregaNokia = document.getElementById("compra-nokia")
+const eliminaNokia = document.getElementById("elimina-nokia")
 
 agregaNokia.onclick = () => {
   itemNokia.classList.remove("hidden")
@@ -441,8 +411,6 @@ agregaNokia.onclick = () => {
   carritoVacio()
 }
 
-const eliminaNokia = document.getElementById("elimina-nokia")
-
 eliminaNokia.onclick = () => {
   itemNokia.classList.add("hidden")
   itemNokia.classList.remove("comprado") 
@@ -451,6 +419,73 @@ eliminaNokia.onclick = () => {
   actualizarSubtotal()
 }
 
+
+
+
+const itemSamsung2 = document.getElementById("ver-item-samsung-2")
+const agregaSamsung2 = document.getElementById("compra-samsung-2")
+const eliminaSamsung2 = document.getElementById("elimina-samsung-2")
+
+agregaSamsung2.onclick = () => {
+  itemSamsung2.classList.remove("hidden")
+  itemSamsung2.classList.add("comprado") 
+  carro.appendChild(itemSamsung2)
+  actualizarCarrito()
+  actualizarSubtotal()
+  carritoVacio()
+}
+
+eliminaSamsung2.onclick = () => {
+  itemSamsung2.classList.add("hidden")
+  itemSamsung2.classList.remove("comprado") 
+  actualizarCarrito()
+  carritoVacio()
+  actualizarSubtotal()
+}
+
+
+const itemIphone = document.getElementById("ver-iphone")
+const agregaIphone = document.getElementById("compra-iphone")
+const eliminaIphone = document.getElementById("elimina-iphone")
+
+agregaIphone.onclick = () => {
+  itemIphone.classList.remove("hidden")
+  itemIphone.classList.add("comprado") 
+  carro.appendChild(itemIphone)
+  actualizarCarrito()
+  actualizarSubtotal()
+  carritoVacio()
+}
+
+eliminaIphone.onclick = () => {
+  itemNokia.classList.add("hidden")
+  itemNokia.classList.remove("comprado") 
+  actualizarCarrito()
+  carritoVacio()
+  actualizarSubtotal()
+}
+
+
+const itemCanon = document.getElementById("ver-canon")
+const agregaCanon = document.getElementById("compra-canon")
+const eliminaCanon = document.getElementById("elimina-canon")
+
+agregaCanon.onclick = () => {
+  itemCanon.classList.remove("hidden")
+  itemCanon.classList.add("comprado") 
+  carro.appendChild(itemCanon)
+  actualizarCarrito()
+  actualizarSubtotal()
+  carritoVacio()
+}
+
+eliminaCanon.onclick = () => {
+  itemNokia.classList.add("hidden")
+  itemNokia.classList.remove("comprado") 
+  actualizarCarrito()
+  carritoVacio()
+  actualizarSubtotal()
+}
 
 
 
@@ -480,16 +515,6 @@ seguirCheckout.onclick = () => {
 }
 
 
-
-/*
-const finalizarproceso = () => {
-for (let final of finalizarCheckout) {
-  if (final.onclick) {
-    overlayVaciar.classList.add("hidden")
-  }
-}
-}
-*/
 
 /***************************  MODAL VACIAR CARRTIO  ***************************/
 
@@ -524,9 +549,6 @@ botonVaciarModal.onclick = () => {
 }
 
 
-
-
-
 /***************************  VER TOTAL PRODUCTOS FILTRADOS  ***************************/
 
 
@@ -546,7 +568,6 @@ const actualizarVista = () => {
 }
 
 
-
 /***************************  VER TOTAL PRODUCTOS COMPRADOS  ***************************/
 
 
@@ -560,12 +581,13 @@ actualizarCarrito = () => {
 }
 
 
+
+
+
 /***************************   SELECCIONAR CANTIDAD DE PRODUCTOS y SUBTOTAL CARRITO  ***************************/
 
 
-
- //RESOLVER COMO HACER QUE SE VEA EL VALOR DE LO YA COMPRADO AL ABRIR EL CARRITO
-/*
+/* //// POSIBLE FUNCION PARA SELECCIONAR CANTIDAD DE PRODUCTOS //////////
 comprar.onclick = () => {
   for (let item of Items) {
     let valor = item.selector.value
@@ -576,36 +598,40 @@ comprar.onclick = () => {
 */
 
 selector1.onclick = () => {
-totalSamsung1 = selector1.value*22500
-subtotalCarrito.textContent = totalSamsung1
+totalSamsung1 = selector1.value*22000
 actualizarSubtotal()
 }
 
 selector2.onclick = () => {
-totalPlay = selector2.value*50000
+totalPlay = selector2.value*30000
+actualizarSubtotal()
+}
+
+selector1.onclick = () => {
+totalNokia = selector1.value*32500
+actualizarSubtotal()
+}
+  
+selector2.onclick = () => {
+totalSamsung2 = selector2.value*56000
 actualizarSubtotal()
 }
 
 
-
 actualizarSubtotal = () => {
-  subtotalFinal = selector1.value*22500 + selector2.value*50000
+  subtotalFinal = selector1.value*22000 + selector2.value*30000 + selector3.value*32500 + selector4.value*56000
   subtotalCarrito.textContent = subtotalFinal
 }
 
-/*
-actualizarSubtotal = () => {
-  subtotalFinal = (totalSamsung1 + totalPlay)
-  subtotalCarrito.textContent = subtotalFinal
-}
-*/
+
+
+//// COMPRAMOS Y AVANZAMOS AL CHEKOUT
 
 comprar.onclick = () => {
   checkout.classList.remove("hidden")
   subtotalCheckout.textContent = subtotalFinal
   totalFinalCheckout.textContent = subtotalFinal
 }
-
 
 
  
@@ -615,14 +641,6 @@ comprar.onclick = () => {
 
 /********************************  PAGO EN CHEKOUT  *********************************/
 
-/*
-const subtotalCheckout = document.getElementById("subototal-checkout")
-const totalCheckout = document.getElementById("total-checkout")
-subtotalCheckout.textContent = subtotalCarrito
-/// Cada vez que se selecciona un input --> Aparece la leyenda y actualiza el Total de Checkout
-totalCheckout.textContent = subtotalCarrito + recargo - descuento + envio
-
-*/
 
 
 
@@ -636,9 +654,13 @@ let checkTarjeta = document.getElementById("check-tarjeta")
 let checkEnvio = document.getElementById("check-envio")
 let checkDescuento = document.getElementById("check-descuento")
 
+
 let totalFinalCheckout = document.getElementById("total-checkout")
 
 
+
+  
+// PAGO EN EFECTIVO SELECCIONADO
 checkEfectivo.onclick = () => {
   // BORRAR RENGLON DE RECARGO
   operacionRecargo = 0
@@ -666,24 +688,10 @@ const calcularTarjeta = () => {
   }
 
 
-// CALCULAR RECARGO POR ENVIO
-
-checkEnvio.onclick = () => {
-
-  if (checkEnvio.checked) {
-    let subtotalResumen = subtotalFinal
-    operacionEnvio = subtotalResumen+300
-    envioCheckout.textContent = operacionEnvio
-    calcularTotalCheckout()
-  }
-  else {
-    operacionEnvio = 0
-    operacionEnvio.textContent = operacionEnvio
-    calcularTotalCheckout()
-  }
+// CALCULAR DESCUENTO 
+checkDescuento.onclick = () => {
+  calcularDescuento()
 }
-
-// CALCULAR DESCUENTO
 
 checkDescuento.onclick = () => {
   if (checkDescuento.checked) {
@@ -697,18 +705,39 @@ checkDescuento.onclick = () => {
     operacionDescuento.textContent = 0
     calcularTotalCheckout()
   }
-
+  return operacionDescuento
 }
 
 
-// CALCULAR TOTAL
+// CALCULAR RECARGO POR ENVIO
 
+checkEnvio.onclick = () => {
+  if (checkEnvio.checked) {
+    envioCheckout.textContent = 300
+    calcularTotalCheckout()
+  }
+  else {
+    operacionEnvio = 0
+    operacionEnvio.textContent = operacionEnvio
+    calcularTotalCheckout()
+  }
+  return operacionEnvio
+}
+
+
+
+////  CALCULAR TOTAL
 const calcularTotalCheckout = () => {
-let subtotalResumen = subtotalFinal
-let operacionTotal = subtotalResumen + operacionRecargo
-  totalFinalCheckout.textContent = operacionTotal + operacionDescuento + operacionEnvio
-
-}
+  let checkEnvio = document.getElementById("check-envio")
+  if (checkEnvio.checked) {
+    let operacionTotal = subtotalResumen + operacionRecargo + operacionDescuento + 300
+    totalFinalCheckout.textContent = operacionTotal
+  }
+  else {
+    let operacionTotal = subtotalResumen + operacionRecargo + operacionDescuento
+    totalFinalCheckout.textContent = operacionTotal
+  }
+  }
 
 
 
