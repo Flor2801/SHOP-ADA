@@ -603,18 +603,14 @@ actualizarSubtotal = () => {
 comprar.onclick = () => {
   checkout.classList.remove("hidden")
   subtotalCheckout.textContent = subtotalFinal
+  totalFinalCheckout.textContent = subtotalFinal
 }
 
 
 
-
-/*
-COMO TRANSFORMAR A NUMERO EL DATA PRECIO, NO FUNCIONA NUMBER P PARSE INT
-*/
-
-
  
-/********************************  BOTON ELIMINAR DE LA TARJETA   *********************************/
+/***************************  BOTON ELIMINAR DE LA TARJETA   ************************/
+
 
 
 /********************************  PAGO EN CHEKOUT  *********************************/
@@ -625,24 +621,6 @@ const totalCheckout = document.getElementById("total-checkout")
 subtotalCheckout.textContent = subtotalCarrito
 /// Cada vez que se selecciona un input --> Aparece la leyenda y actualiza el Total de Checkout
 totalCheckout.textContent = subtotalCarrito + recargo - descuento + envio
-*/
-/*
-let subtotal = document.getElementById("subtotal-checkout")
-
-let recargoCheckout = document.getElementById("recargo-resumen")
-let descuentoCheckout = document.getElementById("descuento-resumen")
-let envioCheckout = document.getElementById("envio-checkout")
-let leyendaRecargo = document.getElementById("recargo")
-let leyendaEnvio = document.getElementById("envio")
-let leyendaDescuento = document.getElementById("descuento")
-
-
-const recargo = () => {
-  if (recargo.checked) {
-    totalRecargo = subtotal*0.10
-    leyendaRecargo.classList.remove("hidden")
-  }
-}
 
 */
 
@@ -652,19 +630,85 @@ let recargoCheckout = document.getElementById("recargo-valor")
 let descuentoCheckout = document.getElementById("descuento-valor")
 let envioCheckout = document.getElementById("envio-valor")
 
+
+let checkEfectivo = document.getElementById("check-efectivo")
 let checkTarjeta = document.getElementById("check-tarjeta")
 let checkEnvio = document.getElementById("check-envio")
 let checkDescuento = document.getElementById("check-descuento")
 
+let totalFinalCheckout = document.getElementById("total-checkout")
 
 
-checkTarjeta.onclick = () => {
-  let subtotalResumen = subtotalFinal
- 
-  operacionRecargo = subtotalResumen*0.10
+checkEfectivo.onclick = () => {
+  // BORRAR RENGLON DE RECARGO
+  operacionRecargo = 0
   recargoCheckout.textContent = operacionRecargo
+  calcularTotalCheckout()
 }
 
+// CALCULAR RECARGO POR PAGO CON TARJETA
+checkTarjeta.onclick = () => {
+  calcularTarjeta()
+}
+
+const calcularTarjeta = () => {
+  if (checkTarjeta.onclick) {
+      let subtotalResumen = subtotalFinal
+      operacionRecargo = subtotalResumen*0.10
+      recargoCheckout.textContent = operacionRecargo
+      calcularTotalCheckout()
+    }
+    else {
+      operacionRecargo = 0
+      recargoCheckout.textContent = operacionRecargo
+      calcularTotalCheckout()
+    }
+  }
+
+
+// CALCULAR RECARGO POR ENVIO
+
+checkEnvio.onclick = () => {
+
+  if (checkEnvio.checked) {
+    let subtotalResumen = subtotalFinal
+    operacionEnvio = subtotalResumen+300
+    envioCheckout.textContent = operacionEnvio
+    calcularTotalCheckout()
+  }
+  else {
+    operacionEnvio = 0
+    operacionEnvio.textContent = operacionEnvio
+    calcularTotalCheckout()
+  }
+}
+
+// CALCULAR DESCUENTO
+
+checkDescuento.onclick = () => {
+  if (checkDescuento.checked) {
+    let subtotalResumen = subtotalFinal
+    operacionDescuento = subtotalResumen*0.20
+    descuentoCheckout.textContent = operacionDescuento
+    calcularTotalCheckout()
+  }
+  else {
+    operacionDescuento = 0
+    operacionDescuento.textContent = 0
+    calcularTotalCheckout()
+  }
+
+}
+
+
+// CALCULAR TOTAL
+
+const calcularTotalCheckout = () => {
+let subtotalResumen = subtotalFinal
+let operacionTotal = subtotalResumen + operacionRecargo
+  totalFinalCheckout.textContent = operacionTotal + operacionDescuento + operacionEnvio
+
+}
 
 
 
