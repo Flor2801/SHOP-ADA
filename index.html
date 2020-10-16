@@ -81,7 +81,7 @@
                             <p>Celular Samsung</p>
 
                             <div>
-                                <i class="fas fa-trash-alt" aria-hidden="true" id="prod-elimina"></i>
+                                <i class="fas fa-trash-alt" aria-hidden="true" id="elimina-samsung-1"></i>
                             </div>
                         </div>
 
@@ -109,7 +109,7 @@
 
                             <p>Play Station</p>
 
-                            <div id="quitar-prod"> <i class="fas fa-trash-alt" aria-hidden="true" id="prod-elimina"></i>
+                            <div id="quitar-prod"> <i class="fas fa-trash-alt" aria-hidden="true" id="elimina-play"></i>
                             </div>
                         </div>
                         <div class="carr-unidades">
@@ -134,7 +134,7 @@
 
                             <p>Celular Nokia</p>
 
-                            <div id="quitar-prod"> <i class="fas fa-trash-alt" aria-hidden="true" id="prod-elimina"></i>
+                            <div id="quitar-prod"> <i class="fas fa-trash-alt" aria-hidden="true" id="elimina-nokia"></i>
                             </div>
                         </div>
                         <div class="carr-unidades">
@@ -158,7 +158,7 @@
 
                             <p>Celular Samsung</p>
 
-                            <div id="quitar-prod"> <i class="fas fa-trash-alt" aria-hidden="true" id="prod-elimina"></i>
+                            <div id="quitar-prod"> <i class="fas fa-trash-alt" aria-hidden="true" id="elimina-nokia"></i>
                             </div>
                         </div>
                         <div class="carr-unidades">
@@ -313,25 +313,23 @@
                             <p>Datos Personales</p>
                             <form class="nombre-y-mail">
                                 <label id="nombreyapellido"> Nombre y Apellido* <br> <input type="text"
-                                        placeholder="p ej.: Ada Lovelace" id="nombre-cliente" tabindex="1"
-                                        required > </label> <br>
-                                <label id="email"> E-mail* <br> <input type="email"
-                                        placeholder="p ej.: adalovelace@gmail.com" id="mail-cliente" tabindex="1" required> </input> </label>
-                            </form>
+                                        placeholder="p ej.: Ada Lovelace" id="nombre-cliente" tabindex="1" required > </label> <br>
+                                <label id="email"> E-mail* <br> <input type="email" placeholder="p ej.: adalovelace@gmail.com" id="mail-cliente" tabindex="1" required> </input> </label>
+                            
                         </div>
                         <div class="opciones-pago">
 
 
-                            <div class="opciones-lista">
+                            <div class="opciones-lista" class="pago-y-envio">
                                 <p>Opciones de pago</p>
-                                <form class="pago-y-envio">
-                                    <label><input type="radio" name="forma de pago" checked> Efectivo
+                                
+                                    <label><input type="radio" name="forma de pago" id="" checked> Efectivo
                                         </input><br></label>
-                                    <label><input type="radio" name="forma de pago"> Tarjeta de credito </input><br>
+                                    <label><input type="radio" name="forma de pago" id="check-tarjeta"> Tarjeta de credito </input><br>
                                     </label>
-                                    <label><input type="checkbox"> Necesito envio </input><br> </label>
-                                    <label><input type="checkbox"> Tengo tarjeta de descuento </input><br>
-                                </form>
+                                    <label><input type="checkbox" id="check-envio"> Necesito envio </input><br> </label>
+                                    <label><input type="checkbox" id="check-descuento"> Tengo tarjeta de descuento </input><br>
+                                
                             </div>
 
                             <div class="ref-opciones">
@@ -353,7 +351,11 @@
                             <p>Resumen</p>
                         </div>
                         <div class="resumen-subtotal">
-                            <p>Subtotal:</p><span id="subtotal-checkout">0</span>
+                            <p>Subtotal:</p><span id="subtotal-checkout">0</span> <br><br>
+
+                            <p id="recargo-resumen">Recargo:</p><span id="recargo-valor">0</span>
+                            <p id="envio-resumen">Envío:</p><span id="envio-valor" >0</span>
+                            <p id="descuento-resumen">Descuento:</p><span  id="descuento-valor" >0</span>
                         </div>
                         <div class="resumen-total">
                             <p>Total: </p><span id="total-checkout">0</span>
@@ -366,12 +368,15 @@
 
                 <div class="botones-checkout">
 
-                    <button class="seguir fin" id="fin-1">
+
+                        <button type="button" class="seguir fin" id="fin-1">
                         <p>SEGUIR COMPRANDO</p>
                     </button>
-                    <button class="finalizar fin" id="fin-2">
+                    
+                        <button  type="submit" class="finalizar fin" id="fin-2">
                         <p>FINALIZAR</p>
                     </button>
+                </form>
 
                 </div>
 
@@ -403,6 +408,11 @@
     </aside>
     <!--   --------------------------------------------------------------------------       -->
 
+
+
+    <div class="overlay-responsive hidden" id="overlay-responsive"></div>
+
+
     <!-- ---------------------------- PORTADA PRINCIPAL CATEGORIA ---------------------------- -->
 
 
@@ -425,7 +435,7 @@
             <div class="filtro">
                 <div id="f"> FILTROS </div>
                 <div id="l">
-                    <div> <i class="fas fa-trash-alt" aria-hidden="true"></i></div>
+                    <div> <i class="fas fa-trash-alt" aria-hidden="true" id="trash"></i></div>
                     <div> <button id='limpieza' aria-label="Limpiar filtros">Limpiar</button></div>
                 </div>
             </div>
@@ -548,9 +558,11 @@
 
         <!--  FILTRO RESPONSIVE   -->
 
-        <div class="fil-responsive hidden" id="fil-responsive">
+      
 
-        </div>
+     
+
+        
 
 
 
@@ -653,7 +665,7 @@
                             </div>
                         </div>
                         <div>
-                            <button class="comprar" id="compra-play">
+                            <button class="comprar" id="compra-play" data-nombre="playstation">
                                 <p>COMPRAR</p>
                             </button>
                         </div>
@@ -689,7 +701,7 @@
                             </div>
                         </div>
                         <div>
-                            <button class="comprar" id="compra-nokia">
+                            <button class="comprar" id="compra-nokia" data-nombre="nokia">
                                 <p>COMPRAR</p>
                             </button>
                         </div>
@@ -725,7 +737,7 @@
                             </div>
                         </div>
                         <div>
-                            <button class="comprar" id="cel-samsung-2">
+                            <button class="comprar" id="cel-samsung-2" data-nombre="samsung-2">
                                 <p>COMPRAR</p>
                             </button>
                         </div>
@@ -761,7 +773,7 @@
                             </div>
                         </div>
                         <div>
-                            <button class="comprar" id="compra-iphone">
+                            <button class="comprar" id="compra-iphone" data-nombre="iphone">
                                 <p>COMPRAR</p>
                             </button>
                         </div>
@@ -803,7 +815,7 @@
                             </div>
                         </div>
                         <div>
-                            <button class="comprar" id="compra-camara-canon">
+                            <button class="comprar" id="compra-camara-canon" data-nombre="canon">
                                 <p>COMPRAR</p>
                             </button>
                         </div>
@@ -840,7 +852,7 @@
                             </div>
                         </div>
                         <div>
-                            <button class="comprar" id="compra-xiaomi">
+                            <button class="comprar" id="compra-xiaomi" data-nombre="xiaomi">
                                 <p>COMPRAR</p>
                             </button>
                         </div>
@@ -876,7 +888,7 @@
                             </div>
                         </div>
                         <div>
-                            <button class="comprar" id="compra-mac">
+                            <button class="comprar" id="compra-mac" data-nombre="mac">
                                 <p>COMPRAR</p>
                             </button>
                         </div>
@@ -914,7 +926,7 @@
                             </div>
                         </div>
                         <div>
-                            <button class="comprar" id="compra-headphones-sony">
+                            <button class="comprar" id="compra-headphones-sony" data-nombre="headphones">
                                 <p>COMPRAR</p>
                             </button>
                         </div>

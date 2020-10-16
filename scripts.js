@@ -22,12 +22,20 @@ const detalle = document.getElementById("desc-producto")
 vistaGrilla.onclick = () => {
   grilla.classList.remove("catalogo-lista");
   detalle.classList.remove("detalles-lista");
+
+  for (textos of descripciones) {
+    textos.classList.add("hidden")
+  }
 }
 
 // Hacer clic en el icono modo lista
 vistaLista.onclick = () => {
   grilla.classList.add("catalogo-lista");
   detalle.classList.add("detalles-lista");
+
+  for (textos of descripciones) {
+    textos.classList.remove("hidden")
+  }
 
 }
 
@@ -198,6 +206,29 @@ const coincidePuntoConTarjeta = (tarjeta) => {
 /*  LIMPIAR TODOS LOS FILTROS */
 
 
+
+limpiar.onclick = () => {
+
+  for (cards of tarjetas) {
+  cards.classList.remove('hidden')
+  cards.classList.add("selected");
+  
+  }
+
+for (punto of filtroRating) {
+     punto.checked = false;
+    }
+
+for (tipo of filtroCategoria) {
+     tipo.checked = false;
+}
+
+filtroNombre.value = "";
+
+actualizarVista()
+}
+
+/*
 limpiar.onclick = () => {
 
   for (cards of tarjetas) {
@@ -223,15 +254,13 @@ filtroNombre.value = "";
 }
 
 
-/*
+
 for (let tarjeta of tarjetas) {
 if ( productosVisibles !== 0)
   tarjeta.classList.remove("selected");
   actualizarVista()
 }
 */
-
-
 
 
 
@@ -246,14 +275,14 @@ const overlay = document.getElementById("overlay");
 const body = document.getElementsByTagName("body");
 
 
-
 carrito.onclick = () => {
   overlay.classList.remove('hidden');
-  overlay.classList.add('no_scroll');
+  document.body.classList.add('no-scroll');
 };
 
 cerrar.onclick = () => {
   overlay.classList.add('hidden');
+  document.body.classList.remove('no-scroll');
 };
 
 
@@ -262,13 +291,11 @@ cerrar.onclick = () => {
 
 
 const embudo = document.getElementById("ico-filtros-responsive");
-const filtroResponsive = document.getElementById("fil-responsive");
+const overlayResponsive = document.getElementById("overlay-responsive");
 
-console.log(embudo)
-console.log(filtroResponsive)
 
 embudo.onclick = () => { 
-  filtroResponsive.classList.remove('hidden');
+  overlayResponsive.classList.remove("hidden");
 };
 
 
@@ -294,37 +321,43 @@ botonFinalizar.onclick = () => {
 
 /*********************************  AGREGRAR PRODUCTOS AL CARRITO ***********************************/
 
-
-/* TEST ALTERNATIVO
-comprar.onclick = () => {
-for (let item of Items) {
-  if (comprar.datanombre.nombre === item.dataset.nombre) {
-    item.classList.remove("hidden")
-  }
-}
-}
-*/
-
+// PARTES DEL CARRITO
 const carro = document.getElementById("menu-compra")
 const aviso = document.getElementById("descripcion-carrito")
+const footerCarrito = document.getElementById("carrito-footer")
+const subtotalCheckout = document.getElementById("subtotal-checkout")
+const totalCheckout = document.getElementById("total-checkout")
 
-
+// PARTES DE LAS TARJETAS
+const Items = document.getElementsByClassName("item")
+const botones = document.getElementsByClassName("comprar")
 const agregaSamsung1 = document.getElementById("compra-samsung-1")
 const itemSamsung1 = document.getElementById("ver-samsung-1")
 const quitar = document.getElementById("ico-samsung1")
-
-const footerCarrito = document.getElementById("carrito-footer")
-const eliminaSamsung1 = document.getElementById("prod-elimina")
-
-
 const selector1 = document.getElementById("selector value-1")
 const precio1 = document.getElementById("precio-1")
 const subtotalCarrito = document.getElementById("subCarrito")
-
 const selector2 = document.getElementById("selector value-2")
-const subtotalCheckout = document.getElementById("subtotal-checkout")
-const totalCheckout = document.getElementById("total-checkout")
-const Items = document.getElementsByClassName("item")
+
+/*
+
+for (let boton of Botones) {
+  
+  boton.onclick = () => {
+  
+    if (boton.data.nombre == item.data.nombre) {
+      item.classList.remove("hidden")
+      item.classList.add("comprado")
+      carro.appendChild(item)
+    }
+  
+  
+  }
+  aviso.classList.add("hidden")
+  actualizarCarrito()
+  }
+
+  */
 
 
 
@@ -334,26 +367,38 @@ const carritoVacio = () => {
     aviso.classList.remove("hidden")
     footerCarrito.classList.add("hidden")
     carro.classList.add("hidden")
+    actualizarCarrito()
+    actualizarSubtotal()
+  }
+  else {
+    aviso.classList.add("hidden")
+    footerCarrito.classList.remove("hidden")
+    carro.classList.remove("hidden")
   }
   
 }
 
+
+
+
+
 agregaSamsung1.onclick = () => {
-  carro.classList.remove("hidden")
   itemSamsung1.classList.remove("hidden")
   itemSamsung1.classList.add("comprado") 
-  aviso.classList.add("hidden")
-  footerCarrito.classList.remove("hidden")
   carro.appendChild(itemSamsung1)
   actualizarCarrito()
-
+  actualizarSubtotal()
+  carritoVacio()
 }
+
+const eliminaSamsung1 = document.getElementById("elimina-samsung-1")
 
 eliminaSamsung1.onclick = () => {
   itemSamsung1.classList.add("hidden")
   itemSamsung1.classList.remove("comprado") 
   actualizarCarrito()
   carritoVacio()
+  actualizarSubtotal()
 }
 
 
@@ -361,13 +406,25 @@ eliminaSamsung1.onclick = () => {
 const itemPlay = document.getElementById("ver-item-play")
 const agregaPlay = document.getElementById("compra-play")
 
+
 agregaPlay.onclick = () => {
   itemPlay.classList.remove("hidden")
   itemPlay.classList.add("comprado") 
-  aviso.classList.add("hidden")
   carro.appendChild(itemPlay)
   actualizarCarrito()
+  actualizarSubtotal()
+  carritoVacio()
+}
 
+
+const eliminaPlay = document.getElementById("elimina-play")
+
+eliminaPlay.onclick = () => {
+  itemPlay.classList.add("hidden")
+  itemPlay.classList.remove("comprado")
+  actualizarCarrito()
+  carritoVacio()
+  actualizarSubtotal()
 }
 
 
@@ -378,19 +435,28 @@ const agregaNokia = document.getElementById("compra-nokia")
 agregaNokia.onclick = () => {
   itemNokia.classList.remove("hidden")
   itemNokia.classList.add("comprado") 
-  aviso.classList.add("hidden")
   carro.appendChild(itemNokia)
   actualizarCarrito()
+  actualizarSubtotal()
+  carritoVacio()
+}
+
+const eliminaNokia = document.getElementById("elimina-nokia")
+
+eliminaNokia.onclick = () => {
+  itemNokia.classList.add("hidden")
+  itemNokia.classList.remove("comprado") 
+  actualizarCarrito()
+  carritoVacio()
+  actualizarSubtotal()
 }
 
 
-const itemSamsung2 = document.getElementById("ver-samsung2")
-const agregaSamsung2 = document.getElementById("compra-samsung2")
+
 
 
 
 /***************************  COMPRAR Y ABRIR MODAL CHECKOUT O ABRIR MODAL VACIAR  ***************************/
-
 
 
 const comprar = document.getElementById("carrito-comprar")
@@ -407,7 +473,6 @@ comprar.onclick = () => {
 
 vaciar.onclick = () => {
   overlayVaciar.classList.remove("hidden")
-  
 }
 
 seguirCheckout.onclick = () => {
@@ -443,15 +508,22 @@ botonVaciarModal.onclick = () => {
   aviso.classList.remove("hidden")
   footerCarrito.classList.add("hidden")
   carro.classList.add("hidden")
+ 
 
-  let productosComprados = document.getElementsByClassName("selected")
+  let productosComprados = document.getElementsByClassName("comprado")
   for (let producto of productosComprados) {
      producto.classList.remove("comprado")
+     producto.classList.add("hidden")
+     
   }
 
   actualizarCarrito()
-
+  carritoVacio()
+  actualizarSubtotal()
+  
 }
+
+
 
 
 
@@ -475,7 +547,6 @@ const actualizarVista = () => {
 
 
 
-
 /***************************  VER TOTAL PRODUCTOS COMPRADOS  ***************************/
 
 
@@ -485,9 +556,8 @@ let productosComprados = document.getElementsByClassName("comprado").length
 actualizarCarrito = () => {
   let productosComprados = document.getElementsByClassName("comprado").length
   totalCarrito.textContent = productosComprados
+
 }
-
-
 
 
 /***************************   SELECCIONAR CANTIDAD DE PRODUCTOS y SUBTOTAL CARRITO  ***************************/
@@ -517,15 +587,25 @@ actualizarSubtotal()
 }
 
 
+
 actualizarSubtotal = () => {
-  subtotalCarrito.textContent = (totalSamsung1 + totalPlay)
-  subtotalCheckout.textContent = subtotalCarrito
+  subtotalFinal = selector1.value*22500 + selector2.value*50000
+  subtotalCarrito.textContent = subtotalFinal
 }
+
+/*
+actualizarSubtotal = () => {
+  subtotalFinal = (totalSamsung1 + totalPlay)
+  subtotalCarrito.textContent = subtotalFinal
+}
+*/
 
 comprar.onclick = () => {
   checkout.classList.remove("hidden")
-  subtotalCheckout.textContent = subtotalCarrito
+  subtotalCheckout.textContent = subtotalFinal
 }
+
+
 
 
 /*
@@ -546,6 +626,49 @@ subtotalCheckout.textContent = subtotalCarrito
 /// Cada vez que se selecciona un input --> Aparece la leyenda y actualiza el Total de Checkout
 totalCheckout.textContent = subtotalCarrito + recargo - descuento + envio
 */
+/*
+let subtotal = document.getElementById("subtotal-checkout")
+
+let recargoCheckout = document.getElementById("recargo-resumen")
+let descuentoCheckout = document.getElementById("descuento-resumen")
+let envioCheckout = document.getElementById("envio-checkout")
+let leyendaRecargo = document.getElementById("recargo")
+let leyendaEnvio = document.getElementById("envio")
+let leyendaDescuento = document.getElementById("descuento")
+
+
+const recargo = () => {
+  if (recargo.checked) {
+    totalRecargo = subtotal*0.10
+    leyendaRecargo.classList.remove("hidden")
+  }
+}
+
+*/
+
+
+
+let recargoCheckout = document.getElementById("recargo-valor")
+let descuentoCheckout = document.getElementById("descuento-valor")
+let envioCheckout = document.getElementById("envio-valor")
+
+let checkTarjeta = document.getElementById("check-tarjeta")
+let checkEnvio = document.getElementById("check-envio")
+let checkDescuento = document.getElementById("check-descuento")
+
+
+
+checkTarjeta.onclick = () => {
+  let subtotalResumen = subtotalFinal
+ 
+  operacionRecargo = subtotalResumen*0.10
+  recargoCheckout.textContent = operacionRecargo
+}
+
+
+
+
+
 
 
 /********************************  FINALIZAR COMPRA  ********************************/
@@ -564,3 +687,4 @@ finalizarCheckout.onclick = () => {
   }
 
 }
+
