@@ -644,6 +644,7 @@ totalSamsung2 = selector4.value*56000
 actualizarSubtotal()
 }
 
+let subtotalFinal
 
 actualizarSubtotal = () => {
   subtotalFinal = selector1.value*22000 + selector2.value*30000 + selector3.value*32500 + selector4.value*56000
@@ -668,44 +669,48 @@ let checkTarjeta = document.getElementById("check-tarjeta")
 let checkEnvio = document.getElementById("check-envio")
 let checkDescuento = document.getElementById("check-descuento")
 
-let formasPago = document.getElementsByClassName("forma-de-pago")
-
 let recargoCheckout = document.getElementById("recargo-valor")
 let descuentoCheckout = document.getElementById("descuento-valor")
 let envioCheckout = document.getElementById("envio-valor")
 
 let totalFinalCheckout = document.getElementById("total-checkout")
 
-let valorFinal = Number(subtotalCheckout.textContent)
+
 
 
 
 ////  CALCULAR TOTAL
 const calcularTotalCheckout = () => {
-    let pagoTotal = valorFinal + calcularDescuento() + calcularRecargo() + calcularEnvio()
+  let pagoTotal 
+    pagoTotal = subtotalFinal + calcularRecargo() - calcularDescuento() + calcularEnvio()
     totalFinalCheckout.textContent = pagoTotal
   }
   
 
-
-  
 // PAGO EN EFECTIVO SELECCIONADO
 checkEfectivo.onclick = () => {
   operacionRecargo = 0
   recargoCheckout.textContent = 0
+  calcularTotalCheckout()
 }
 
+checkTarjeta.onclick = () => {
+  calcularTotalCheckout()
+}
+checkDescuento.onclick = () => {
+  calcularTotalCheckout()
+}
+checkEnvio.onclick = () => {
+  calcularTotalCheckout()
+}
 
-// CALCULAR RECARGO POR PAGO CON TARJETA
-
-
-
+// CALCULAR RECARGO
 let recargoTarjeta
 
-checkTarjeta.onclick = () => {
+const calcularRecargo = () => {
 
   if (checkTarjeta.checked) {
-      let recargoTarjeta = subtotalFinal*0.10
+      recargoTarjeta = subtotalFinal*0.10
       recargoCheckout.textContent = recargoTarjeta
     }
     else {
@@ -715,13 +720,7 @@ checkTarjeta.onclick = () => {
     return recargoTarjeta
   }
 
-
-
-
   // CALCULAR DESCUENTO 
-  checkDescuento.onclick = () => {
-    calcularDescuento()
-  }
 
 let descuentoTarjeta
 
@@ -737,12 +736,7 @@ const calcularDescuento = () => {
   return descuentoTarjeta
 }
 
-
 // CALCULAR RECARGO POR ENVIO
-
-checkEnvio.onclick = () => {
-  calcularEnvio()
-}
 
 let adicionalEnvio
 
