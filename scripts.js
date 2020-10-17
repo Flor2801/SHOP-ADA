@@ -288,7 +288,9 @@ botonFinalizar.onclick = () => {
 }
 
 
-/*********************************  AGREGRAR PRODUCTOS AL CARRITO ***********************************/
+/*********************************  AGREGRAR PRODUCTOS AL CARRITO  **********************************/
+/*********************************   BOTON ELIMINAR DE LA TARJETA   *********************************/
+
 
 // PARTES DEL CARRITO
 const carro = document.getElementById("menu-compra")
@@ -296,13 +298,16 @@ const aviso = document.getElementById("descripcion-carrito")
 const footerCarrito = document.getElementById("carrito-footer")
 const subtotalCheckout = document.getElementById("subtotal-checkout")
 const totalCheckout = document.getElementById("total-checkout")
+const subtotalCarrito = document.getElementById("subtotal-Carrito")
+
+
 
 // PARTES DE LAS TARJETAS
 const Items = document.getElementsByClassName("item")
 const botones = document.getElementsByClassName("comprar")
 const quitar = document.getElementById("ico-samsung1")
 const precio1 = document.getElementById("precio-1")
-const subtotalCarrito = document.getElementById("subCarrito")
+
 
 const selector1 = document.getElementById("selector value-1")
 const selector2 = document.getElementById("selector value-2")
@@ -316,6 +321,8 @@ const carritoVacio = () => {
     aviso.classList.remove("hidden")
     footerCarrito.classList.add("hidden")
     carro.classList.add("hidden")
+    subtotalCarrito.textContent = 0
+   
 
   for (let input of selectores) {
     input.value = 0;
@@ -327,15 +334,16 @@ const carritoVacio = () => {
     aviso.classList.add("hidden")
     footerCarrito.classList.remove("hidden")
     carro.classList.remove("hidden")
+   
   }
+
+  
   
 }
 
 /*
 
 //////////  POSIBLE FUNCION PARA AGREGAR PRODUCTOS AL CARRITO
-
-
 
 for (let boton of botones) {
 if (boton.onclick) {
@@ -355,9 +363,12 @@ if (boton.onclick) {
 */
 
 
+
 const agregaSamsung1 = document.getElementById("compra-samsung-1")
 const itemSamsung1 = document.getElementById("ver-samsung-1")
 const eliminaSamsung1 = document.getElementById("elimina-samsung-1")
+
+//////////// AGREGAR PRODUCTO
 
 agregaSamsung1.onclick = () => {
   itemSamsung1.classList.remove("hidden")
@@ -368,6 +379,8 @@ agregaSamsung1.onclick = () => {
   actualizarSubtotal()
   carritoVacio()
 }
+
+//////////// ELIMINAR PRODUCTO
 
 eliminaSamsung1.onclick = () => {
   itemSamsung1.classList.add("hidden")
@@ -513,10 +526,8 @@ const seguirCheckout = document.getElementById("fin-1")
 const finalizarCheckout = document.getElementById("fin-2")
 
 
-
 comprar.onclick = () => {
   checkout.classList.remove("hidden")
-  subtotalCheckout.textContent = subtotalCarrito
 }
 
 vaciar.onclick = () => {
@@ -592,16 +603,15 @@ let totalCarrito = document.getElementById("total-carrito")
 let productosComprados = document.getElementsByClassName("comprado").length
 
 actualizarCarrito = () => {
+
   let productosComprados = document.getElementsByClassName("comprado").length
   totalCarrito.textContent = productosComprados
 
 }
 
 
-
-
-
 /***************************   SELECCIONAR CANTIDAD DE PRODUCTOS y SUBTOTAL CARRITO  ***************************/
+
 
 
 /* //// POSIBLE FUNCION PARA SELECCIONAR CANTIDAD DE PRODUCTOS //////////
@@ -641,7 +651,6 @@ actualizarSubtotal = () => {
 }
 
 
-
 //// COMPRAMOS Y AVANZAMOS AL CHEKOUT
 
 comprar.onclick = () => {
@@ -651,19 +660,7 @@ comprar.onclick = () => {
 }
 
 
- 
-/***************************  BOTON ELIMINAR DE LA TARJETA   ************************/
-
-
-
 /********************************  PAGO EN CHEKOUT  *********************************/
-
-
-
-
-let recargoCheckout = document.getElementById("recargo-valor")
-let descuentoCheckout = document.getElementById("descuento-valor")
-let envioCheckout = document.getElementById("envio-valor")
 
 
 let checkEfectivo = document.getElementById("check-efectivo")
@@ -671,93 +668,95 @@ let checkTarjeta = document.getElementById("check-tarjeta")
 let checkEnvio = document.getElementById("check-envio")
 let checkDescuento = document.getElementById("check-descuento")
 
+let formasPago = document.getElementsByClassName("forma-de-pago")
+
+let recargoCheckout = document.getElementById("recargo-valor")
+let descuentoCheckout = document.getElementById("descuento-valor")
+let envioCheckout = document.getElementById("envio-valor")
 
 let totalFinalCheckout = document.getElementById("total-checkout")
 
+let valorFinal = Number(subtotalCheckout.textContent)
+
+
+
+////  CALCULAR TOTAL
+const calcularTotalCheckout = () => {
+    let pagoTotal = valorFinal + calcularDescuento() + calcularRecargo() + calcularEnvio()
+    totalFinalCheckout.textContent = pagoTotal
+  }
+  
 
 
   
 // PAGO EN EFECTIVO SELECCIONADO
 checkEfectivo.onclick = () => {
-  // BORRAR RENGLON DE RECARGO
   operacionRecargo = 0
-  recargoCheckout.textContent = operacionRecargo
-  calcularTotalCheckout()
+  recargoCheckout.textContent = 0
 }
+
 
 // CALCULAR RECARGO POR PAGO CON TARJETA
-checkTarjeta.onclick = () => {
-  calcularTarjeta()
-}
 
-const calcularTarjeta = () => {
-  if (checkTarjeta.onclick) {
-      let subtotalResumen = subtotalFinal
-      operacionRecargo = subtotalResumen*0.10
-      recargoCheckout.textContent = operacionRecargo
-      calcularTotalCheckout()
+
+
+let recargoTarjeta
+
+checkTarjeta.onclick = () => {
+
+  if (checkTarjeta.checked) {
+      let recargoTarjeta = subtotalFinal*0.10
+      recargoCheckout.textContent = recargoTarjeta
     }
     else {
-      operacionRecargo = 0
-      recargoCheckout.textContent = operacionRecargo
-      calcularTotalCheckout()
+      recargoTarjeta = 0
+      recargoCheckout.textContent = 0
     }
+    return recargoTarjeta
   }
 
 
-// CALCULAR DESCUENTO 
-checkDescuento.onclick = () => {
-  calcularDescuento()
-}
 
-checkDescuento.onclick = () => {
+
+  // CALCULAR DESCUENTO 
+  checkDescuento.onclick = () => {
+    calcularDescuento()
+  }
+
+let descuentoTarjeta
+
+const calcularDescuento = () => {
   if (checkDescuento.checked) {
-    let subtotalResumen = subtotalFinal
-    operacionDescuento = subtotalResumen*0.20
-    descuentoCheckout.textContent = operacionDescuento
-    calcularTotalCheckout()
+    descuentoTarjeta = subtotalFinal*0.05
+    descuentoCheckout.textContent = descuentoTarjeta
   }
   else {
-    operacionDescuento = 0
-    operacionDescuento.textContent = 0
-    calcularTotalCheckout()
+    descuentoTarjeta = 0
+    descuentoCheckout.textContent = 0
   }
-  return operacionDescuento
+  return descuentoTarjeta
 }
 
 
 // CALCULAR RECARGO POR ENVIO
 
 checkEnvio.onclick = () => {
-  if (checkEnvio.checked) {
-    envioCheckout.textContent = 300
-    calcularTotalCheckout()
-  }
-  else {
-    operacionEnvio = 0
-    operacionEnvio.textContent = operacionEnvio
-    calcularTotalCheckout()
-  }
-  return operacionEnvio
+  calcularEnvio()
 }
 
+let adicionalEnvio
 
-
-////  CALCULAR TOTAL
-const calcularTotalCheckout = () => {
-  let checkEnvio = document.getElementById("check-envio")
-  if (checkEnvio.checked) {
-    let operacionTotal = subtotalResumen + operacionRecargo + operacionDescuento + 300
-    totalFinalCheckout.textContent = operacionTotal
-  }
-  else {
-    let operacionTotal = subtotalResumen + operacionRecargo + operacionDescuento
-    totalFinalCheckout.textContent = operacionTotal
-  }
-  }
-
-
-
+const calcularEnvio = () => {
+    if (checkEnvio.checked) {
+      adicionalEnvio = 300
+      envioCheckout.textContent = 300
+    }
+    else {
+      adicionalEnvio = 0
+      envioCheckout.textContent = 0
+    }
+    return adicionalEnvio
+}
 
 
 
@@ -774,7 +773,19 @@ finalizarCheckout.onclick = () => {
     checkout.classList.remove("hidden");
     inputNombre.focus();
     inputMail.focus();
+
+    for (let input of selectores) {
+      input.value = 0;
+    }
+  
+    let productosComprados = document.getElementsByClassName("comprado")
+    for (let producto of productosComprados) {
+       producto.classList.remove("comprado")
+       producto.classList.add("hidden")
+    }
+  }
+  
+    
   }
 
-}
 
