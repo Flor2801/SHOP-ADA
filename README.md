@@ -1,7 +1,7 @@
-<h2>PROYECTO:</h2> <h3>Tienda de Productos Electrónicos</3>
-Este es el segundo proyecto de Desarrollo Web Frontend de ADA ITW.
+<h3>PROYECTO: Tienda de Productos Electrónicos</h3>
+<p>Este es el segundo proyecto de Desarrollo Web Frontend de ADA ITW.</p>
 
-Tecnologías y diseño
+<p>Tecnologías y diseño
 Las tecnologías usadas para este proyecto fueron:
 
 -HTML5
@@ -11,6 +11,7 @@ Las tecnologías usadas para este proyecto fueron:
 -Javascript
 
 -Requisitos de accesibilidad web
+</p>
 
 <br>
 <br>
