@@ -12,8 +12,10 @@ Las tecnologías usadas para este proyecto fueron:
 
 -Requisitos de accesibilidad web
 
+<br>
+<br>
 
-VER TIENDA EN FUNCIONAMIENTO:
+<strong>VER TIENDA EN FUNCIONAMIENTO:<strong>
 https://flor2801.github.io/SHOP-ADA/
 
 Importante: para probar la compra solo funcionan los 3 primeros productos.
@@ -21,8 +23,10 @@ Pendiente de realizacion requisitos de accesibilidad y responsive.
 
 
 NOTAS:
-Disfrute mucho haciendo este desarrollo, es mi primera aplicación de Javascript. Estoy realmente muy contenta con mi aprendizaje y avance; seguiré mejorando el código para hacerlo
+Disfrute mucho haciendo este desarrollo, es mi primera aplicación de Javascript. 
+Estoy realmente muy contenta con mi aprendizaje y avance; seguiré mejorando el código para hacerlo
 cada vez mejor y profesional. 
+Aprendi mucho leyendo el codigo de mis compañeras.
 
 
 
