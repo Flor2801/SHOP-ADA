@@ -2,7 +2,7 @@
 <p>Este es el segundo proyecto de Desarrollo Web Frontend de ADA ITW.</p>
 
 <p>Tecnologías y diseño</p>
-Las tecnologías usadas para este proyecto fueron:
+Las tecnologías usadas para este proyecto fueron:<br>
 
 -HTML5
 
