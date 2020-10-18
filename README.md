@@ -1,4 +1,4 @@
-PROYECTO: Tienda de Productos Electrónicos
+<h2>PROYECTO:</h2> <h3>Tienda de Productos Electrónicos</3>
 Este es el segundo proyecto de Desarrollo Web Frontend de ADA ITW.
 
 Tecnologías y diseño
@@ -15,7 +15,7 @@ Las tecnologías usadas para este proyecto fueron:
 <br>
 <br>
 
-<strong>VER TIENDA EN FUNCIONAMIENTO:<strong>
+<strong>VER TIENDA EN FUNCIONAMIENTO:</strong>
 https://flor2801.github.io/SHOP-ADA/
 
 Importante: para probar la compra solo funcionan los 3 primeros productos.
